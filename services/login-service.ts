@@ -14,21 +14,21 @@ export async function login(loginFormData: LoginProps): Promise<LoginResponse> {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify(loginFormData),
-	});
+	})
 
-	const statusCode = response.status;
+	const statusCode = response?.status;
 
 	if (statusCode === 401) {
 		throw new Error("Credenciais inválidas, verifique se email ou senha estão corretos.");
 	}
 
 	if (statusCode === 404) {
-		throw new Error("Usuário não encotrado, solicite a realização do cadastro.");
+		throw new Error("Usuário não encontrado, solicite a realização do cadastro.");
 	}
 
 	if (!response.ok) {
 		throw new Error("Algo deu errado.");
 	}
 
-	return await response.json();
+	return response.json();
 }

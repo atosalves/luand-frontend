@@ -8,6 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useLogin } from "@/hooks/use-login";
 
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { AlertCircle } from "lucide-react";
+
 const LoginSchema = z.object({
 	email: z.string().email({ message: "Email deve ser válido" }),
 	password: z
@@ -59,10 +62,19 @@ export function LoginForm() {
 						</FormItem>
 					)}
 				/>
-				<Button variant="outline" type="submit" disabled={isPending}>
+				<Button type="submit" disabled={isPending}>
 					Entrar
 				</Button>
-				{isError && <Label>{error.message}</Label>}
+				{isError &&
+					<Alert variant="destructive">
+						<AlertCircle className="h-4 w-4" />
+						<AlertTitle>Error</AlertTitle>
+						<AlertDescription>
+							{error.message}
+						</AlertDescription>
+					</Alert>
+				}
+
 			</form>
 		</Form>
 	);

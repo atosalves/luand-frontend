@@ -16,7 +16,7 @@ export async function login(loginFormData: LoginProps): Promise<LoginResponse> {
 		body: JSON.stringify(loginFormData),
 	})
 
-	const statusCode = response?.status;
+	const statusCode = response.status;
 
 	if (statusCode === 401) {
 		throw new Error("Credenciais inválidas, verifique se email ou senha estão corretos.");
@@ -30,5 +30,5 @@ export async function login(loginFormData: LoginProps): Promise<LoginResponse> {
 		throw new Error("Algo deu errado.");
 	}
 
-	return response.json();
+	return await response.json();
 }

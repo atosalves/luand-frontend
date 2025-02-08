@@ -1,12 +1,13 @@
 "use client"
 
 import { LoginForm } from "@/components/login-form";
+import { Label } from "@/components/ui/label";
 
 
 export default function LoginPage() {
 	return (
 		<>
-			<h1>Login</h1>
+			<Label>Login</Label>
 			<LoginForm />
 		</>
 	);

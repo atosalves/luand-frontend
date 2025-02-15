@@ -6,8 +6,8 @@ const queryClient = new QueryClient();
 
 export default function PublicoLayout({ children }: Readonly<{ children: React.ReactNode }>) {
         return (
-                <QueryClientProvider client={queryClient}>
-                        {children}
-                </QueryClientProvider>
+            <QueryClientProvider client={queryClient}>
+                {children}
+            </QueryClientProvider>
         );
 }

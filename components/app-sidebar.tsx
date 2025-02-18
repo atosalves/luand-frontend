@@ -1,3 +1,4 @@
+"use client";
 import {
     Sidebar,
     SidebarContent,
@@ -9,20 +10,19 @@ import {
 } from "@/components/ui/sidebar";
 import { Label } from "./ui/label";
 
-import {
-    Cog,
-    FolderOpenDot,
-    Home,
-    LogOut,
-    Package,
-    Percent,
-    Shirt,
-} from "lucide-react";
+import { Cog, Image, LogOut, ScissorsLineDashed } from "lucide-react";
 
 import Link from "next/link";
 import { removeToken } from "@/lib/token-utils";
+import { usePathname } from "next/navigation";
+
+const links = [
+    { path: "/estampas", icon: <Image />, title: "Estampas" },
+    { path: "/modelos", icon: <ScissorsLineDashed />, title: "Modelos" },
+] as const;
 
 export function AppSidebar() {
+    const pathname = usePathname();
     return (
         <Sidebar>
             <SidebarHeader>
@@ -31,48 +31,21 @@ export function AppSidebar() {
 
             <SidebarContent>
                 <SidebarMenu>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton asChild>
-                            <Link href="/luand">
-                                <Home />
-                                <span>Dashboard</span>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton asChild>
-                            <Link href="/luand">
-                                <Package />
-                                <span>Estoque</span>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-
-                    <SidebarMenuItem>
-                        <SidebarMenuButton asChild>
-                            <Link href="luand/estampas">
-                                <FolderOpenDot />
-                                <span>Estampas</span>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-
-                    <SidebarMenuItem>
-                        <SidebarMenuButton asChild>
-                            <Link href="luand/modelos">
-                                <Shirt />
-                                <span>Modelos</span>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton asChild>
-                            <Link href="/login">
-                                <Percent />
-                                <span>Promoções</span>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
+                    {links.map(({ path, icon, title }) => (
+                        <SidebarMenuItem key={title} className="px-2">
+                            <SidebarMenuButton
+                                asChild
+                                className={`${
+                                    pathname === path ? "bg-neutral-200 hover:bg-neutral-200" : "hover:bg-neutral-200"
+                                }`}
+                            >
+                                <Link href={path}>
+                                    {icon}
+                                    <span>{title}</span>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    ))}
                 </SidebarMenu>
             </SidebarContent>
             <SidebarFooter>

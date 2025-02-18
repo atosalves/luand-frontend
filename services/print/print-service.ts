@@ -44,48 +44,8 @@ export async function createPrint(
         },
         body: JSON.stringify({
             ...modelFormData,
-            print: `${modelFormData.name}.${modelFormData.imageFile.name.split(".").pop()}`,
+            image: `${modelFormData.name}.${modelFormData.imageFile.name.split(".").pop()}`,
         }),
-    });
-
-    const statusCode = response.status;
-
-    if (statusCode === 400) {
-        throw new Error("Credenciais inválidas, verifique se estão corretos.");
-    }
-
-    if (statusCode === 409) {
-        throw new Error("Nome da estampa já existe.");
-    }
-
-    if (!response.ok) {
-        throw new Error("Algo deu errado.");
-    }
-
-    const data = await response.json();
-
-    return PrintResponseSchema.parse(data);
-}
-
-export async function updatePrint(
-    fashionLineFormData: z.infer<typeof UpdatePrintSchema>
-): Promise<z.infer<typeof PrintResponseSchema>> {
-    const token = await getToken();
-
-    const file = fashionLineFormData.imageFile;
-    const fileName = `${fashionLineFormData.name}.${file.name.split(".").pop()}`;
-    const bufferedImage = await fashionLineFormData.imageFile.arrayBuffer();
-    const typeImage = file.type;
-
-    await uploadImage(fileName, bufferedImage, typeImage);
-
-    const response = await fetch(`${URL}/${fashionLineFormData.id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(fashionLineFormData),
     });
 
     const statusCode = response.status;

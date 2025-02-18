@@ -6,12 +6,12 @@ import Image from "next/image";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { EditButton } from "../edit-button";
 import { DeleteButton } from "../delete-button";
-import { useGetAllFashionLines } from "@/hooks/use-fashion-line";
+import { useGetAllPrints } from "@/hooks/use-print";
 import { Label } from "../ui/label";
-import { DeleteDialogFashionLine } from "./delete-dialog-fashion-line";
+import { DeleteDialogPrint } from "./delete-dialog-print";
 
-export function AllFashionLines() {
-    const { data, isLoading, isError } = useGetAllFashionLines();
+export function AllPrints() {
+    const { data, isLoading, isError } = useGetAllPrints();
 
     // if (isLoading)
     //     return (
@@ -63,12 +63,12 @@ export function AllFashionLines() {
 
     return (
         <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-            {data?.map(({ id, name, print, modelDTO }) => (
+            {data?.map(({ id, name, image, modelDTO }) => (
                 <Card key={id} className="overflow-hidden">
                     <CardHeader className="p-0 pb-4">
                         <AspectRatio ratio={3 / 4}>
                             <Image
-                                src={`https://luand.s3.us-east-2.amazonaws.com/${print}`}
+                                src={`https://luand.s3.us-east-2.amazonaws.com/${image}`}
                                 alt="Imagem da coleção"
                                 fill
                                 priority
@@ -83,7 +83,7 @@ export function AllFashionLines() {
                     </CardContent>
                     <CardFooter className="space-x-2 justify-self-end">
                         <EditButton />
-                        <DeleteDialogFashionLine {...{ id, print, name }} />
+                        <DeleteDialogPrint {...{ id, image, name }} />
                     </CardFooter>
                 </Card>
             ))}

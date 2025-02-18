@@ -4,25 +4,25 @@ import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog";
 
 import { useState } from "react";
-import { FashionLineForm } from "./fashion-line-form";
-import { useCreateFashionLine } from "@/hooks/use-fashion-line";
+import { PrintForm } from "./print-form";
+import { useCreatePrint } from "@/hooks/use-print";
 
-export function CreateDialogFashionLine() {
-    const { mutate, error, isPending } = useCreateFashionLine();
+export function CreateDialogPrint() {
+    const { mutate, error, isPending } = useCreatePrint();
 
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <Dialog onOpenChange={() => setIsOpen((prevUpdate) => !prevUpdate)} open={isOpen}>
             <DialogTrigger asChild>
-                <Button>Criar coleção</Button>
+                <Button>Criar estampa</Button>
             </DialogTrigger>
             <DialogContent aria-describedby={undefined}>
-                <DialogTitle>Criar coleção</DialogTitle>
+                <DialogTitle>Criar estampa</DialogTitle>
 
-                <FashionLineForm
-                    onSubmit={(fashionLineForm) =>
-                        mutate(fashionLineForm, {
+                <PrintForm
+                    onSubmit={(printForm) =>
+                        mutate(printForm, {
                             onSuccess: () => {
                                 setIsOpen((prevUpdate) => !prevUpdate);
                             },

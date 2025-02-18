@@ -1,4 +1,4 @@
-import { getToken } from "@/app/actions";
+import { getToken } from "@/lib/token-utils";
 import { z } from "zod";
 
 const sizeEnum = z.enum(["PP", "P", "M", "G", "GG"]);
@@ -10,12 +10,12 @@ export const modelSchema = z.object({
         .string()
         .trim()
         .min(3, "O nome deve conter no mínimo 3 caracteres")
-        .max(20, "O nome deve conter no máximo 72 caracteres"),
+        .max(72, "O nome deve conter no máximo 72 caracteres"),
     description: z
         .string()
         .trim()
         .min(3, "A descrição deve conter no mínimo 3 caracteres")
-        .max(72, "A descrição deve conter no máximo 72 caracteres"),
+        .max(255, "A descrição deve conter no máximo 255 caracteres"),
     price: z.coerce.number().positive("O valor deve ser positivo"),
     supportedSizes: z
         .array(sizeEnum)
@@ -29,7 +29,14 @@ const URL = "http://localhost:8080/models";
 export async function getAllModels(): Promise<
     z.infer<typeof extendedModelSchema>[]
 > {
-    const response = await fetch(URL);
+    const token = await getToken();
+
+    const response = await fetch(URL, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
 
     if (!response.ok) {
         throw new Error("Algo deu errado: " + response.status);
@@ -43,7 +50,6 @@ export async function getAllModels(): Promise<
 export async function createModel(
     modelFormData: z.infer<typeof modelSchema>
 ): Promise<z.infer<typeof extendedModelSchema>> {
-    // TODO: depois ver uma maneira de salvar token em um redis (em cache)
     const token = await getToken();
 
     const response = await fetch(URL, {

@@ -1,3 +1,5 @@
+"use client";
+
 import { useUpdateModel } from "@/hooks/use-model";
 import { Button } from "../ui/button";
 import {
@@ -12,6 +14,7 @@ import { useState } from "react";
 import { extendedModelSchema } from "@/services/model-service";
 import { z } from "zod";
 import { Pencil } from "lucide-react";
+import { EditButton } from "../edit-button";
 
 export function UpdateDialogModel({
     ...data
@@ -26,9 +29,7 @@ export function UpdateDialogModel({
             open={isOpen}
         >
             <DialogTrigger asChild>
-                <Button>
-                    <Pencil color="white" />
-                </Button>
+                <EditButton />
             </DialogTrigger>
             <DialogContent aria-describedby={undefined}>
                 <DialogTitle>Editar modelo</DialogTitle>

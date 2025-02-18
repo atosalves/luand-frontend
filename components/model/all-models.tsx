@@ -1,3 +1,5 @@
+"use client";
+
 import { useGetAllModels } from "@/hooks/use-model";
 import { Skeleton } from "../ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";

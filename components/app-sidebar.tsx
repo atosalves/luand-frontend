@@ -53,6 +53,7 @@ export function AppSidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild>
                             <Link href="/luand">
+                            <Link href="/luand">
                                 <Cog />
                                 <span>Loja</span>
                             </Link>

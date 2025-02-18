@@ -24,6 +24,15 @@ export const modelSchema = z.object({
 
 export const extendedModelSchema = modelSchema.extend({ id: z.number() });
 
+export const ModelSummaryDTO = z.object({
+    id: z.number(),
+    name: z
+        .string()
+        .trim()
+        .min(3, "O nome deve conter no mínimo 3 caracteres")
+        .max(72, "O nome deve conter no máximo 72 caracteres"),
+});
+
 const URL = "http://localhost:8080/models";
 
 export async function getAllModels(): Promise<

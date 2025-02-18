@@ -14,22 +14,18 @@ import { useState } from "react";
 import { extendedModelSchema } from "@/services/model-service";
 import { z } from "zod";
 import { Pencil } from "lucide-react";
-import { EditButton } from "../edit-button";
 
-export function UpdateDialogModel({
-    ...data
-}: z.infer<typeof extendedModelSchema>) {
+export function UpdateDialogModel({ ...data }: z.infer<typeof extendedModelSchema>) {
     const { mutate, error, isPending } = useUpdateModel();
 
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <Dialog
-            onOpenChange={() => setIsOpen((prevUpdate) => !prevUpdate)}
-            open={isOpen}
-        >
+        <Dialog onOpenChange={() => setIsOpen((prevUpdate) => !prevUpdate)} open={isOpen}>
             <DialogTrigger asChild>
-                <EditButton />
+                <Button>
+                    <Pencil color="white" />
+                </Button>
             </DialogTrigger>
             <DialogContent aria-describedby={undefined}>
                 <DialogTitle>Editar modelo</DialogTitle>

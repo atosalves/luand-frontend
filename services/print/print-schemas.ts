@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { extendedModelSchema } from "../model-service";
+import { ModelSummaryDTO } from "../model-service";
 
 const printVars = {
     id: z.coerce.number(),
@@ -11,7 +11,7 @@ const printVars = {
         .max(72, "O nome deve conter no máximo 72 caracteres"),
     imageFile: z.custom<File>(),
     modelId: z.coerce.number(),
-    modelDTO: extendedModelSchema,
+    modelSummaryDTO: ModelSummaryDTO,
 };
 
 export const CreatePrintSchema = z.object({
@@ -22,8 +22,8 @@ export const CreatePrintSchema = z.object({
 
 export const UpdatePrintSchema = z.object({
     id: printVars.id,
+    image: printVars.imageFile,
     name: printVars.name,
-    imageFile: printVars.imageFile,
     modelId: printVars.modelId,
 });
 
@@ -36,7 +36,7 @@ export const PrintResponseSchema = z.object({
     id: printVars.id,
     image: printVars.image,
     name: printVars.name,
-    modelDTO: printVars.modelDTO,
+    modelSummaryDTO: printVars.modelSummaryDTO,
 });
 
 

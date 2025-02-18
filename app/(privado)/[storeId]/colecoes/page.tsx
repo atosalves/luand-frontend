@@ -1,5 +1,5 @@
-import { AllFashionLines } from "@/components/fashion-lines/all-fashion-lines";
-import { CreateDialogFashionLine } from "@/components/fashion-lines/create-dialog-fashion-line";
+import { AllPrints } from "@/components/fashion-lines/all-prints";
+import { CreateDialogPrint } from "@/components/fashion-lines/create-dialog-print";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Header } from "@/components/ui/header";
 import Image from "next/image";
@@ -28,13 +28,10 @@ const itensF = [
 export default function ColecaoPage() {
     return (
         <>
-            <Header
-                title="Coleções"
-                description="Lista de coleções para gerenciar"
-            >
-                <CreateDialogFashionLine />
+            <Header title="Coleções" description="Lista de coleções para gerenciar">
+                <CreateDialogPrint />
             </Header>
-            <AllFashionLines data={itensF} />
+            <AllPrints data={itensF} />
         </>
     );
 }

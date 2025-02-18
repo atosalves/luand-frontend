@@ -1,20 +1,20 @@
 "use client";
 
-import { useDeleteFashionLine } from "@/hooks/use-fashion-line";
+import { useDeletePrint } from "@/hooks/use-print";
 
 import { Button } from "../ui/button";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
 
-interface DeleteFashionLineProps {
+interface DeletePrintProps {
     id: number;
-    print: string;
+    image: string;
     name: string;
 }
 
-export function DeleteDialogFashionLine({ id, print, name }: DeleteFashionLineProps) {
-    const { mutate, isPending } = useDeleteFashionLine();
+export function DeleteDialogPrint({ id, image, name }: DeletePrintProps) {
+    const { mutate, isPending } = useDeletePrint();
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -26,14 +26,14 @@ export function DeleteDialogFashionLine({ id, print, name }: DeleteFashionLinePr
                 </Button>
             </DialogTrigger>
             <DialogContent aria-describedby={undefined}>
-                <DialogTitle>Excluir a coleção {name}?</DialogTitle>
+                <DialogTitle>Excluir a estampa {name}?</DialogTitle>
 
                 <DialogFooter className="flex flex-row space-x-4 justify-end">
                     <Button
                         variant="destructive"
                         onClick={() =>
                             mutate(
-                                { id, print },
+                                { id, image },
                                 {
                                     onSuccess: () => {
                                         setIsOpen((prevUpdate) => !prevUpdate);

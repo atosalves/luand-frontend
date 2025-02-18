@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
-import { FashionLineSchema } from "@/services/print/print-schemas";
+import { CreatePrintSchema } from "@/services/print/print-schemas";
 import { useGetAllModels } from "@/hooks/use-model";
 
 import { AspectRatio } from "../ui/aspect-ratio";
@@ -16,21 +16,21 @@ import Image from "next/image";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useEffect, useState } from "react";
 
-interface FashionLineFormProps {
-    onSubmit: SubmitHandler<z.infer<typeof FashionLineSchema>>;
+interface PrintFormProps {
+    onSubmit: SubmitHandler<z.infer<typeof CreatePrintSchema>>;
     isPending: boolean;
     error: Error | null;
-    data?: z.infer<typeof FashionLineSchema>;
+    data?: z.infer<typeof CreatePrintSchema>;
 }
 
-export function FashionLineForm({ onSubmit, isPending, error, data }: FashionLineFormProps) {
+export function PrintForm({ onSubmit, isPending, error, data }: PrintFormProps) {
     const useAllModels = useGetAllModels();
 
-    const form = useForm<z.infer<typeof FashionLineSchema>>({
-        resolver: zodResolver(FashionLineSchema),
+    const form = useForm<z.infer<typeof CreatePrintSchema>>({
+        resolver: zodResolver(CreatePrintSchema),
         defaultValues: {
             name: data?.name || "",
-            print: undefined,
+            imageFile: undefined,
             modelId: data?.modelId || 0,
         },
     });
@@ -52,7 +52,7 @@ export function FashionLineForm({ onSubmit, isPending, error, data }: FashionLin
                 <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col space-y-8">
                     <FormField
                         control={form.control}
-                        name="print"
+                        name="imageFile"
                         render={({ field }) => (
                             <>
                                 <div className="rounded-2xl overflow-hidden">
@@ -61,9 +61,14 @@ export function FashionLineForm({ onSubmit, isPending, error, data }: FashionLin
                                         className="flex justify-center items-center w-full h-full "
                                     >
                                         {preview ? (
-                                            <Image src={preview} alt="Capa de coleção" fill className="object-cover" />
+                                            <Image
+                                                src={preview}
+                                                alt="Imagem da estampa"
+                                                fill
+                                                className="object-cover"
+                                            />
                                         ) : (
-                                            <span>Selecione uma imagem para capa de coleção</span>
+                                            <span>Selecione uma imagem</span>
                                         )}
                                     </AspectRatio>
                                 </div>
@@ -75,10 +80,10 @@ export function FashionLineForm({ onSubmit, isPending, error, data }: FashionLin
                                             accept="image/png, image/jpeg"
                                             onChange={(event) => {
                                                 if (event.target.files) {
-                                                    const image = event.target.files[0];
+                                                    const imageFile = event.target.files[0];
 
-                                                    field.onChange(image);
-                                                    setSelectedFile(image);
+                                                    field.onChange(imageFile);
+                                                    setSelectedFile(imageFile);
                                                 }
                                             }}
                                         />

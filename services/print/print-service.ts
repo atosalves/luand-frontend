@@ -1,16 +1,11 @@
 import { getToken } from "@/lib/token-utils";
 import { z } from "zod";
 import { deleteImage, uploadImage } from "../s3-service";
-import {
-    DeleteFashionLineSchema,
-    FashionLineResponseSchema,
-    FashionLineSchema,
-    UpdateFashionLineSchema,
-} from "./print-schemas";
+import { DeletePrintSchema, PrintResponseSchema, CreatePrintSchema, UpdatePrintSchema } from "./print-schemas";
 
 const URL = "http://localhost:8080/fashion-lines";
 
-export async function getAllFashionLines(): Promise<z.infer<typeof FashionLineResponseSchema>[]> {
+export async function getAllPrints(): Promise<z.infer<typeof PrintResponseSchema>[]> {
     const token = await getToken();
 
     const response = await fetch(URL, {
@@ -26,17 +21,17 @@ export async function getAllFashionLines(): Promise<z.infer<typeof FashionLineRe
 
     const data = await response.json();
 
-    return z.array(FashionLineResponseSchema).parse(data);
+    return z.array(PrintResponseSchema).parse(data);
 }
 
-export async function createFashionLine(
-    modelFormData: z.infer<typeof FashionLineSchema>
-): Promise<z.infer<typeof FashionLineResponseSchema>> {
+export async function createPrint(
+    modelFormData: z.infer<typeof CreatePrintSchema>
+): Promise<z.infer<typeof PrintResponseSchema>> {
     const token = await getToken();
 
-    const file = modelFormData.print;
+    const file = modelFormData.imageFile;
     const fileName = `${modelFormData.name}.${file.name.split(".").pop()}`;
-    const bufferedImage = await modelFormData.print.arrayBuffer();
+    const bufferedImage = await modelFormData.imageFile.arrayBuffer();
     const typeImage = file.type;
 
     await uploadImage(fileName, bufferedImage, typeImage);
@@ -49,7 +44,7 @@ export async function createFashionLine(
         },
         body: JSON.stringify({
             ...modelFormData,
-            print: `${modelFormData.name}.${modelFormData.print.name.split(".").pop()}`,
+            print: `${modelFormData.name}.${modelFormData.imageFile.name.split(".").pop()}`,
         }),
     });
 
@@ -60,7 +55,7 @@ export async function createFashionLine(
     }
 
     if (statusCode === 409) {
-        throw new Error("Nome da coleção já existe.");
+        throw new Error("Nome da estampa já existe.");
     }
 
     if (!response.ok) {
@@ -69,17 +64,17 @@ export async function createFashionLine(
 
     const data = await response.json();
 
-    return FashionLineResponseSchema.parse(data);
+    return PrintResponseSchema.parse(data);
 }
 
-export async function updateFashionLine(
-    fashionLineFormData: z.infer<typeof UpdateFashionLineSchema>
-): Promise<z.infer<typeof FashionLineResponseSchema>> {
+export async function updatePrint(
+    fashionLineFormData: z.infer<typeof UpdatePrintSchema>
+): Promise<z.infer<typeof PrintResponseSchema>> {
     const token = await getToken();
 
-    const file = fashionLineFormData.print;
+    const file = fashionLineFormData.imageFile;
     const fileName = `${fashionLineFormData.name}.${file.name.split(".").pop()}`;
-    const bufferedImage = await fashionLineFormData.print.arrayBuffer();
+    const bufferedImage = await fashionLineFormData.imageFile.arrayBuffer();
     const typeImage = file.type;
 
     await uploadImage(fileName, bufferedImage, typeImage);
@@ -100,7 +95,7 @@ export async function updateFashionLine(
     }
 
     if (statusCode === 409) {
-        throw new Error("Nome da coleção já existe.");
+        throw new Error("Nome da estampa já existe.");
     }
 
     if (!response.ok) {
@@ -109,10 +104,10 @@ export async function updateFashionLine(
 
     const data = await response.json();
 
-    return FashionLineResponseSchema.parse(data);
+    return PrintResponseSchema.parse(data);
 }
 
-export async function deleteFashionLine({ id, print }: z.infer<typeof DeleteFashionLineSchema>) {
+export async function deletePrint({ id, image: print }: z.infer<typeof DeletePrintSchema>) {
     // TODO: depois ver uma maneira de salvar token em um redis (em cache)
     const token = await getToken();
 
@@ -129,7 +124,7 @@ export async function deleteFashionLine({ id, print }: z.infer<typeof DeleteFash
     const statusCode = response.status;
 
     if (statusCode === 404) {
-        throw new Error("Coleção não encontrada!");
+        throw new Error("Estampa não encontrada!");
     }
 
     if (!response.ok) {

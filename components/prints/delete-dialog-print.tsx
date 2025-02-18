@@ -26,7 +26,7 @@ export function DeleteDialogPrint({ id, image, name }: DeletePrintProps) {
                 </Button>
             </DialogTrigger>
             <DialogContent aria-describedby={undefined}>
-                <DialogTitle>Excluir a estampa {name}?</DialogTitle>
+                <DialogTitle>Deseja excluir a estampa {name}?</DialogTitle>
 
                 <DialogFooter className="flex flex-row space-x-4 justify-end">
                     <Button

@@ -1,5 +1,5 @@
-import { AllPrints } from "@/components/fashion-lines/all-prints";
-import { CreateDialogPrint } from "@/components/fashion-lines/create-dialog-print";
+import { AllPrints } from "@/components/prints/all-prints";
+import { CreateDialogPrint } from "@/components/prints/create-dialog-print";
 import { Header } from "@/components/ui/header";
 
 export default function ColecaoPage() {

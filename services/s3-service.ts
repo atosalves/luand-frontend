@@ -3,8 +3,8 @@ import { S3 } from "@aws-sdk/client-s3";
 const s3 = new S3({
     region: "us-east-2",
     credentials: {
-        accessKeyId: "AKIAWX2IFQ5D4NEEDJUW",
-        secretAccessKey: "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",
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.AWS_SECRET_KEY!,
     },
 });
 

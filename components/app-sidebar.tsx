@@ -33,7 +33,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild>
-                            <Link href="/dashboard">
+                            <Link href="/luand">
                                 <Home />
                                 <span>Dashboard</span>
                             </Link>
@@ -41,7 +41,7 @@ export function AppSidebar() {
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild>
-                            <Link href="/login">
+                            <Link href="/luand">
                                 <Package />
                                 <span>Estoque</span>
                             </Link>
@@ -50,16 +50,16 @@ export function AppSidebar() {
 
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild>
-                            <Link href="/login">
+                            <Link href="luand/estampas">
                                 <FolderOpenDot />
-                                <span>Coleções</span>
+                                <span>Estampas</span>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
 
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild>
-                            <Link href="/modelos">
+                            <Link href="luand/modelos">
                                 <Shirt />
                                 <span>Modelos</span>
                             </Link>
@@ -79,7 +79,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild>
-                            <Link href="/login">
+                            <Link href="/luand">
                                 <Cog />
                                 <span>Loja</span>
                             </Link>

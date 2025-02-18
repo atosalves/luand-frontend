@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
     Form,
@@ -17,6 +16,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 import { modelSchema, sizes } from "@/services/model-service";
+import { Textarea } from "../ui/textarea";
 
 interface ModelFormProps {
     onSubmit: SubmitHandler<z.infer<typeof modelSchema>>;
@@ -67,7 +67,7 @@ export function ModelForm({
                         <FormItem>
                             <FormLabel>Descrição</FormLabel>
                             <FormControl>
-                                <Input placeholder="Descrição" {...field} />
+                                <Textarea placeholder="Descrição" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

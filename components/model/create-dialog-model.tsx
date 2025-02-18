@@ -1,3 +1,5 @@
+"use client";
+
 import { useCreateModel } from "@/hooks/use-model";
 
 import { Button } from "../ui/button";

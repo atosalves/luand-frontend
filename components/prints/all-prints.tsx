@@ -32,7 +32,7 @@ export function AllPrints() {
 
     return (
         <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-            {data?.map(({ id, name, image, modelSummaryDTO }, index) => (
+            {data?.map(({ id, name, image, modelSummaryDTO }) => (
                 <Card key={id} className="overflow-hidden">
                     <CardHeader className="p-0 pb-4">
                         <AspectRatio ratio={3 / 4}>

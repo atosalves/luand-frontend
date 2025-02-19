@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Label } from "./ui/label";
 
-import { Cog, Image, LogOut, ScissorsLineDashed } from "lucide-react";
+import { Cog, Image, LogOut, ScissorsLineDashed, Shirt } from "lucide-react";
 
 import Link from "next/link";
 import { removeToken } from "@/lib/token-utils";
@@ -19,6 +19,7 @@ import { usePathname } from "next/navigation";
 const links = [
     { path: "/estampas", icon: <Image />, title: "Estampas" },
     { path: "/modelos", icon: <ScissorsLineDashed />, title: "Modelos" },
+    { path: "/estoque", icon: <Shirt />, title: "Estoque" },
 ] as const;
 
 export function AppSidebar() {

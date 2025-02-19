@@ -3,7 +3,7 @@ import { z } from "zod";
 
 const sizeEnum = z.enum(["PP", "P", "M", "G", "GG"]);
 
-export const sizes = Object.values(sizeEnum.Values);
+export const Sizes = Object.values(sizeEnum.Values);
 
 export const modelSchema = z.object({
     name: z

@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
-import { modelSchema, sizes } from "@/services/model-service";
+import { modelSchema, Sizes } from "@/services/model-service";
 import { Textarea } from "../ui/textarea";
 
 interface ModelFormProps {
@@ -25,12 +25,7 @@ interface ModelFormProps {
     data?: z.infer<typeof modelSchema>;
 }
 
-export function ModelForm({
-    onSubmit,
-    isPending,
-    error,
-    data,
-}: ModelFormProps) {
+export function ModelForm({ onSubmit, isPending, error, data }: ModelFormProps) {
     const form = useForm<z.infer<typeof modelSchema>>({
         resolver: zodResolver(modelSchema),
         defaultValues: {
@@ -43,10 +38,7 @@ export function ModelForm({
 
     return (
         <Form {...form}>
-            <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="flex flex-col space-y-8"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col space-y-8">
                 <FormField
                     control={form.control}
                     name="name"
@@ -80,11 +72,7 @@ export function ModelForm({
                         <FormItem>
                             <FormLabel>Valor</FormLabel>
                             <FormControl>
-                                <Input
-                                    type="number"
-                                    placeholder="Valor"
-                                    {...field}
-                                />
+                                <Input type="number" placeholder="Valor" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -96,11 +84,9 @@ export function ModelForm({
                     render={() => (
                         <FormItem>
                             <div className="mb-4">
-                                <FormLabel className="text-base">
-                                    Tamanhos
-                                </FormLabel>
+                                <FormLabel className="text-base">Tamanhos</FormLabel>
                             </div>
-                            {sizes.map((size) => (
+                            {Sizes.map((size) => (
                                 <FormField
                                     key={size}
                                     control={form.control}
@@ -113,34 +99,17 @@ export function ModelForm({
                                             >
                                                 <FormControl>
                                                     <Checkbox
-                                                        checked={field.value?.includes(
-                                                            size
-                                                        )}
-                                                        onCheckedChange={(
-                                                            checked
-                                                        ) => {
+                                                        checked={field.value?.includes(size)}
+                                                        onCheckedChange={(checked) => {
                                                             return checked
-                                                                ? field.onChange(
-                                                                      [
-                                                                          ...field.value,
-                                                                          size,
-                                                                      ]
-                                                                  )
+                                                                ? field.onChange([...field.value, size])
                                                                 : field.onChange(
-                                                                      field.value?.filter(
-                                                                          (
-                                                                              value
-                                                                          ) =>
-                                                                              value !==
-                                                                              size
-                                                                      )
+                                                                      field.value?.filter((value) => value !== size)
                                                                   );
                                                         }}
                                                     />
                                                 </FormControl>
-                                                <FormLabel className="text-sm font-normal">
-                                                    {size}
-                                                </FormLabel>
+                                                <FormLabel className="text-sm font-normal">{size}</FormLabel>
                                             </FormItem>
                                         );
                                     }}

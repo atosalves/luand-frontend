@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ModelSummaryDTO } from "../model-service";
+import { ModelSummaryDTO } from "../services/model-service";
 
 const printVars = {
     id: z.coerce.number(),
@@ -9,8 +9,8 @@ const printVars = {
         .trim()
         .min(3, "O nome deve conter no mínimo 3 caracteres")
         .max(72, "O nome deve conter no máximo 72 caracteres"),
-    imageFile: z.custom<File>(),
-    modelId: z.coerce.number(),
+    imageFile: z.custom<File>((file) => (file instanceof File ? file : null), "A imagem é necessária"),
+    modelId: z.coerce.number({ message: "O modelo é obrigatório" }),
     modelSummaryDTO: ModelSummaryDTO,
 };
 
@@ -38,9 +38,3 @@ export const PrintResponseSchema = z.object({
     name: printVars.name,
     modelSummaryDTO: printVars.modelSummaryDTO,
 });
-
-
-
-
-
-

@@ -1,7 +1,7 @@
 import { getToken } from "@/lib/token-utils";
 import { z } from "zod";
-import { deleteImage, uploadImage } from "../s3-service";
-import { DeletePrintSchema, PrintResponseSchema, CreatePrintSchema, UpdatePrintSchema } from "./print-schemas";
+import { deleteImage, uploadImage } from "./s3-service";
+import { DeletePrintSchema, PrintResponseSchema, CreatePrintSchema, UpdatePrintSchema } from "../models/print-schemas";
 
 const URL = "http://localhost:8080/fashion-lines";
 

@@ -2,8 +2,8 @@
 
 import { useDeletePrint } from "@/hooks/use-print";
 
-import { Button } from "../ui/button";
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
 

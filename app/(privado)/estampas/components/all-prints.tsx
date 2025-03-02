@@ -3,11 +3,11 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetAllPrints } from "@/hooks/use-print";
 import { DeleteDialogPrint } from "./delete-dialog-print";
-import { Loading } from "../loading";
-import { Alert, AlertTitle, AlertDescription } from "../ui/alert";
+import { Loading } from "@/components/loading";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 export function AllPrints() {
     const { data, isLoading, isError } = useGetAllPrints();

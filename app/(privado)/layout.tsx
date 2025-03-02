@@ -5,6 +5,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactNode } from "react";
+import { Toaster } from "@/components/ui/sonner";
 
 const queryClient = new QueryClient();
 
@@ -12,6 +13,7 @@ export default function PrivateLayout({ children }: { children: ReactNode }) {
     return (
         <QueryClientProvider client={queryClient}>
             <SidebarProvider>
+                <Toaster />
                 <AppSidebar />
                 <main className="flex flex-col items-center space-y-4 w-full p-4">
                     <SidebarTrigger className="self-start" />

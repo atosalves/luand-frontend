@@ -15,6 +15,7 @@ import { Cog, Image, LogOut, ScissorsLineDashed, Shirt } from "lucide-react";
 import Link from "next/link";
 import { removeToken } from "@/lib/token-utils";
 import { usePathname } from "next/navigation";
+import { toast } from "sonner";
 
 const links = [
     { path: "/estampas", icon: <Image />, title: "Estampas" },
@@ -61,7 +62,13 @@ export function AppSidebar() {
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild>
-                            <Link href="/login" onClick={removeToken}>
+                            <Link
+                                href="/login"
+                                onClick={() => {
+                                    toast.success("Deslogado com sucesso");
+                                    removeToken();
+                                }}
+                            >
                                 <LogOut />
                                 <span>Fazer logout</span>
                             </Link>

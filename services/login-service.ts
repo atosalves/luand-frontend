@@ -1,6 +1,6 @@
 type LoginProps = {
-	email: string;
-	password: string;
+    email: string;
+    password: string;
 };
 
 export async function login(loginFormData: LoginProps) {
@@ -11,23 +11,12 @@ export async function login(loginFormData: LoginProps) {
         },
         body: JSON.stringify(loginFormData),
         credentials: "include",
+    }).catch(() => {
+        throw new Error("Erro no servidor");
     });
 
-    const statusCode = response.status;
-
-    if (statusCode === 401) {
-        throw new Error(
-            "Credenciais inválidas, verifique se email ou senha estão corretos."
-        );
-    }
-
-    if (statusCode === 404) {
-        throw new Error(
-            "Usuário não encontrado, solicite a realização do cadastro."
-        );
-    }
-
     if (!response.ok) {
-        throw new Error("Algo deu errado.");
+        const data = await response.json();
+        throw new Error(data.message);
     }
 }
